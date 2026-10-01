@@ -46,15 +46,10 @@ pipeline {
         stage('Container Verification') {
             steps {
                 echo 'Starting temporary container...'
-
                 bat 'docker run -d --name %CONTAINER_NAME% -p %APP_PORT%:8080 %IMAGE_NAME%:build-%BUILD_NUMBER%'
-
                 echo 'Waiting for application to start...'
-
-                bat 'timeout /t 10 /nobreak'
-
+                powershell 'Start-Sleep -Seconds 10'
                 echo 'Checking health endpoint...'
-
                 bat 'curl -f http://localhost:%APP_PORT%/health'
             }
         }
