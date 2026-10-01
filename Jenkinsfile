@@ -48,7 +48,7 @@ pipeline {
                 echo 'Starting temporary container...'
                 bat 'docker run -d --name %CONTAINER_NAME% -p %APP_PORT%:8080 %IMAGE_NAME%:build-%BUILD_NUMBER%'
                 echo 'Waiting for application to start...'
-                powershell 'Start-Sleep -Seconds 10'
+               bat 'ping 127.0.0.1 -n 11 > nul'
                 echo 'Checking health endpoint...'
                 bat 'curl -f http://localhost:%APP_PORT%/health'
             }
